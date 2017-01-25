@@ -1,1 +1,91 @@
-{}
+{
+  "info": {
+    "title": "Location Service",
+    "description": "This service is responsible for delivering messages to / from applications",
+    "version": "1.0.0"
+  },
+  "swagger": "2.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "description": "Get Health of Service",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Health",
+            "schema": {
+              "$ref": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Error": {
+      "type": "object",
+      "required": [
+        "errorMessage"
+      ],
+      "properties": {
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
+    "Health": {
+      "type": "object",
+      "required": [
+        "cpuPercentUsage",
+        "totalMemPercentageUsage",
+        "loadAvg"
+      ]
+    },
+    "PageDescriptor": {
+      "type": "object",
+      "required": [
+        "page",
+        "size",
+        "total"
+      ],
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "PageResponse": {
+      "type": "object",
+      "required": [
+        "page",
+        "elements"
+      ],
+      "properties": {
+        "page": {
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/PageDescriptor"
+          }
+        },
+        "elements": {
+          "type": "array"
+        }
+      }
+    }
+  },
+  "responses": {},
+  "parameters": {},
+  "securityDefinitions": {},
+  "tags": []
+}
