@@ -1,6 +1,11 @@
 'use strict'
 /**
  * @swagger
+ * tags:
+ *  - name: error
+ *    description: 'Everything you need to know about Error'
+ *  - name: health
+ *    description: 'Everything you need to know about Health'
  * definitions:
  *   Error:
  *     type: object
@@ -15,32 +20,11 @@
  *        - cpuPercentUsage
  *        - totalMemPercentageUsage
  *        - loadAvg
- *   PageDescriptor:
- *     type: object
- *     required:
- *       - page
- *       - size
- *       - total
  *     properties:
- *        page:
- *          type: integer
- *          format: int64
- *        size:
- *          type: integer
- *          format: int64
- *        total:
- *          type: integer
- *          format: int64
- *   PageResponse:
- *     type: object
- *     required:
- *       - page
- *       - elements
- *     properties:
- *       page:
- *          type: object
- *          schema:
- *            $ref: '#/definitions/PageDescriptor'
- *       elements:
- *          type: array
+ *        cpuPercentUsage:
+ *          type: number
+ *        totalMemPercentageUsage:
+ *          type: number
+ *        loadAvg:
+ *          type: number
  */

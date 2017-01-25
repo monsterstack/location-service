@@ -9,14 +9,21 @@
     "/health": {
       "get": {
         "description": "Get Health of Service",
+        "tags": [
+          "health"
+        ],
         "produces": [
+          "application/json"
+        ],
+        "consumes": [
           "application/json"
         ],
         "responses": {
           "200": {
             "description": "Health",
+            "type": "object",
             "schema": {
-              "$ref": null
+              "$ref": "#/definitions/Health"
             }
           }
         }
@@ -41,45 +48,16 @@
         "cpuPercentUsage",
         "totalMemPercentageUsage",
         "loadAvg"
-      ]
-    },
-    "PageDescriptor": {
-      "type": "object",
-      "required": [
-        "page",
-        "size",
-        "total"
       ],
       "properties": {
-        "page": {
-          "type": "integer",
-          "format": "int64"
+        "cpuPercentUsage": {
+          "type": "number"
         },
-        "size": {
-          "type": "integer",
-          "format": "int64"
+        "totalMemPercentageUsage": {
+          "type": "number"
         },
-        "total": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "PageResponse": {
-      "type": "object",
-      "required": [
-        "page",
-        "elements"
-      ],
-      "properties": {
-        "page": {
-          "type": "object",
-          "schema": {
-            "$ref": "#/definitions/PageDescriptor"
-          }
-        },
-        "elements": {
-          "type": "array"
+        "loadAvg": {
+          "type": "number"
         }
       }
     }
@@ -87,5 +65,14 @@
   "responses": {},
   "parameters": {},
   "securityDefinitions": {},
-  "tags": []
+  "tags": [
+    {
+      "name": "error",
+      "description": "Everything you need to know about Error"
+    },
+    {
+      "name": "health",
+      "description": "Everything you need to know about Health"
+    }
+  ]
 }
