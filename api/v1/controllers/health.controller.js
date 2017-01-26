@@ -2,7 +2,7 @@
 
 const appRoot = require('app-root-path');
 const HttpStatus = require('http-status');
-const Error = require('core-server').Error;
+const ServiceError = require('core-server').ServiceError;
 const HealthService = require('core-server').HealthService;
 
 
