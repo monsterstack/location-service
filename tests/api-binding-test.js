@@ -2,11 +2,17 @@
 const ApiBinding = require('discovery-proxy').ApiBinding;
 const assert = require('assert');
 
-describe('mdn-api-binding', () => {
+// Location Api Binding Test Cases
+describe('location-api-binding', () => {
   let Server = require('core-server').Server;
   let server = null;
+
+  /**
+   * Before every test we need to do the following:
+   * 1. Launch an instance of LocationService - port number specified in test/config/default.json
+   */
   before((done) => {
-    server = new Server("MdnService", null, null, {});
+    server = new Server("LocationService", null, null, {});
 
     server.init().then(() => {
       server.loadHttpRoutes();
@@ -24,6 +30,12 @@ describe('mdn-api-binding', () => {
 
   });
 
+  /**
+   * This test makes sure all the api(s) for LocationService are available via
+   * ApiBinding.  Note the stubbed minimal ServiceDescriptor for ApiBinding.
+   * It is assumed the LocationService is serving up a valid swagger.json that
+   * accurately described the operations / tags supported by the LocationService.
+   */
   it('api created when binding occurs', (done) => {
 
     let service = {
