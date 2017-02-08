@@ -17,8 +17,6 @@ const main = () => {
 
   let announcement = require('./announcement.json');
   let cluster = new Cluster(announcement.name, announcement, options);
-  //let exitHandler = proxy.exitHandlerFactory(cluster.id, model);
-  //cluster.bindExitHandler(exitHandler);
 
   cluster.start();
 }
