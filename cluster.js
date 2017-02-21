@@ -31,6 +31,10 @@ const main = () => {
 
   /* Start the Cluster */
   cluster.start();
+
+  cluster.onProxyReady((proxy) => {
+    console.log("Yeah.. the proxy is bound");
+  });
 }
 
 
