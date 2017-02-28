@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
     web:
@@ -6,4 +6,4 @@ services:
             - back-tier
 networks:
     back-tier:
-        driver: overlay
+        external: true

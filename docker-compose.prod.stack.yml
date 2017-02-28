@@ -1,11 +1,14 @@
 version: '3'
+
 services:
   web:
-    build: .
+    image: locationservice_web
     ports:
       - "10616:10616"
+    networks:
+      - back-tier
     volumes:
-      - .:/code
+      - /code
     environment:
       - HOST_IP=${HOST_IP}
       - REDIS_HOST_IP=${REDIS_HOST_IP}
@@ -14,7 +17,11 @@ services:
       - STAGE=${STAGE}
       - CONFIG_HOST=${CONFIG_HOST}
       - CONFIG_PORT=${CONFIG_PORT}
+      - INTERLOCK_DATA={"hostname":"location", "domain":"digitalfunk.io"}
     extra_hosts:
       - "cdsp.digitalfunk.io:${HOST_IP}"
       - "etcd.digitalfunk.io:${ETCD_HOST_IP}"
-      - "redis.digitalfunk.io:${REDIS_HOST_IP}"    
+      - "redis.digitalfunk.io:${REDIS_HOST_IP}" 
+networks:
+    back-tier:
+        external: true
