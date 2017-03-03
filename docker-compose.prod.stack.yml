@@ -5,6 +5,7 @@ services:
     image: locationservice_web
     ports:
       - "10616:10616"
+      - "10617:10617"
     networks:
       - back-tier
     volumes:
