@@ -1,0 +1,64 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/zacharyrote/.nvm/versions/node/v6.3.1/bin/node',
+1 verbose cli   '/Users/zacharyrote/.nvm/versions/node/v6.3.1/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-f',
+1 verbose cli   'pack.json' ]
+2 info using npm@3.10.3
+3 info using node@v6.3.1
+4 warn using --force I sure hope you know what you are doing.
+5 silly loadCurrentTree Starting
+6 silly install loadCurrentTree
+7 silly install readLocalPackageData
+8 silly fetchPackageMetaData pack.json
+9 silly fetchOtherPackageData pack.json
+10 silly cache add args [ 'pack.json', null ]
+11 verbose cache add spec pack.json
+12 silly cache add parsed spec Result {
+12 silly cache add   raw: 'pack.json',
+12 silly cache add   scope: null,
+12 silly cache add   escapedName: 'pack.json',
+12 silly cache add   name: null,
+12 silly cache add   rawSpec: 'pack.json',
+12 silly cache add   spec: '/Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json',
+12 silly cache add   type: 'local' }
+13 silly addLocalTarball shasum (computed) 4cfc42f48f8bc5d2a9c47dd43b2f536d4089eccd
+14 verbose addTmpTarball /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json not in flight; adding
+15 verbose correctMkdir /Users/zacharyrote/.npm correctMkdir not in flight; initializing
+16 verbose addTmpTarball validating metadata from /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json
+17 verbose tar unpack /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json
+18 verbose tar unpacking to /var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd
+19 silly gentlyRm /var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd is being purged
+20 verbose gentlyRm don't care about contents; nuking /var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd
+21 silly gunzTarPerm modes [ '755', '644' ]
+22 error not a package /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json
+23 error addLocal Could not install /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service/pack.json
+24 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json'
+24 silly fetchPackageMetaData     at Error (native)
+24 silly fetchPackageMetaData  error for pack.json { Error: ENOENT: no such file or directory, open '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json'
+24 silly fetchPackageMetaData     at Error (native)
+24 silly fetchPackageMetaData   errno: -2,
+24 silly fetchPackageMetaData   code: 'ENOENT',
+24 silly fetchPackageMetaData   syscall: 'open',
+24 silly fetchPackageMetaData   path: '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json' }
+25 silly rollbackFailedOptional Starting
+26 silly rollbackFailedOptional Finishing
+27 silly runTopLevelLifecycles Starting
+28 silly runTopLevelLifecycles Finishing
+29 silly install printInstalled
+30 verbose stack Error: ENOENT: no such file or directory, open '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json'
+30 verbose stack     at Error (native)
+31 verbose cwd /Users/zacharyrote/Desktop/sandbox/git-source/cdsp-location-services/location-service
+32 error Darwin 16.4.0
+33 error argv "/Users/zacharyrote/.nvm/versions/node/v6.3.1/bin/node" "/Users/zacharyrote/.nvm/versions/node/v6.3.1/bin/npm" "install" "-f" "pack.json"
+34 error node v6.3.1
+35 error npm  v3.10.3
+36 error path /var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json
+37 error code ENOENT
+38 error errno -2
+39 error syscall open
+40 error enoent ENOENT: no such file or directory, open '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json'
+41 error enoent ENOENT: no such file or directory, open '/var/folders/cr/pw359fmn0875dlcnt1twy37m0000gn/T/npm-63434-ee7b2a4c/unpack-c2e165dd/package.json'
+41 error enoent This is most likely not a problem with npm itself
+41 error enoent and is related to npm not being able to find a file.
+42 verbose exit [ -2, true ]
