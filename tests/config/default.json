@@ -1,19 +1,22 @@
 {
   "port": 10616,
   "discovery": {
-    "host": "discovery.digitalfunk.io",
+    "host": "localhost",
     "port": 7616
   },
   "redis": {
-    "host": "redis.digitalfunk.io",
+    "host": "localhost",
     "port": 6379
   },
   "stash": {
     "type": "tcp",
-    "host": "cdsp.digitalfunk.io",
+    "host": "localhost",
     "port": 9600
   },
   "websockets": {
     "enabled": true
+  },
+  "db": {
+    "url": "mongodb://localhost:27017"
   }
 }

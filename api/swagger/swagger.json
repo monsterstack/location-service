@@ -9,6 +9,7 @@
     "/health": {
       "get": {
         "description": "Get Health of Service",
+        "operationId": "getHealth",
         "tags": [
           "health"
         ],
@@ -28,9 +29,305 @@
           }
         }
       }
+    },
+    "/accounts": {
+      "post": {
+        "description": "Save Inflight Account",
+        "operationId": "saveAccount",
+        "tags": [
+          "account"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "account",
+            "description": "InflightAccount",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/InflightAccount"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "InflightAccount",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/InflightAccount"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      },
+      "put": {
+        "description": "Update Inflight Account",
+        "operationId": "updateAccount",
+        "tags": [
+          "account"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "account",
+            "description": "InflightAccount",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/InflightAccount"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "InflightAccount",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/InflightAccount"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      },
+      "$ref": "#/definitions/Error"
+    },
+    "$ref": {
+      "0": "#",
+      "1": "/",
+      "2": "d",
+      "3": "e",
+      "4": "f",
+      "5": "i",
+      "6": "n",
+      "7": "i",
+      "8": "t",
+      "9": "i",
+      "10": "o",
+      "11": "n",
+      "12": "s",
+      "13": "/",
+      "14": "E",
+      "15": "r",
+      "16": "r",
+      "17": "o",
+      "18": "r"
+    },
+    "/accounts/{id}": {
+      "get": {
+        "description": "Find Inflight Account By Id",
+        "operationId": "findAccountById",
+        "tags": [
+          "account"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Account Id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "InflightAccount",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/InflightAccount"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "Ticket": {
+      "type": "object",
+      "required": [
+        "inflightAccountId",
+        "ttl",
+        "startTime",
+        "destination"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "inflightAccountId": {
+          "type": "string"
+        },
+        "startTime": {
+          "type": "number",
+          "format": "date"
+        },
+        "destination": {
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/Destination"
+          }
+        },
+        "ttl": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "integer"
+        }
+      }
+    },
+    "InflightAccount": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "onBehalfOfTitle": {
+          "type": "string"
+        },
+        "onBehalfOfLogoUrl": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer"
+        },
+        "ttl": {
+          "type": "integer"
+        }
+      }
+    },
+    "Destination": {
+      "type": "object",
+      "required": [
+        "street",
+        "city",
+        "state",
+        "postalCode",
+        "countryCode"
+      ],
+      "properties": {
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      }
+    },
     "Error": {
       "type": "object",
       "required": [
@@ -46,14 +343,10 @@
       "type": "object",
       "required": [
         "cpuPercentUsage",
-        "totalMemPercentageUsage",
         "loadAvg"
       ],
       "properties": {
         "cpuPercentUsage": {
-          "type": "number"
-        },
-        "totalMemPercentageUsage": {
           "type": "number"
         },
         "loadAvg": {
@@ -73,6 +366,14 @@
     {
       "name": "health",
       "description": "Everything you need to know about Health"
+    },
+    {
+      "name": "ticket",
+      "description": "Everything you need to know about Ticket"
+    },
+    {
+      "name": "account",
+      "description": "Everything you need to know about InflightAccount"
     }
   ]
 }

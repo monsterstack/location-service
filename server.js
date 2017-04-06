@@ -6,7 +6,6 @@ const express = require('express');
 const path = require('path');
 const _ = require('lodash');
 
-
 /**
  * Start Server
  * Options:
@@ -64,6 +63,9 @@ const main = () => {
     app.use('/portal', express.static(path.join(__dirname + '/portal')));
     app.use('/public', express.static(path.join(__dirname, 'public')));
 
+    // Set up Tenant DB Creation Middleware
+    app.tenantDbCreation = new TenantDbCreationMiddleware(app);
+
     server.loadHttpRoutes();
     server.listen().then(() => {
       console.log('Up and running..');
@@ -78,7 +80,6 @@ const main = () => {
   });
 
 }
-
 
 if(require.main === module) {
   main();

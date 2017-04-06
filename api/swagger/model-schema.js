@@ -10,8 +10,6 @@
  *    description: 'Everything you need to know about Ticket'
  *  - name: account
  *    description: 'Everything you need to know about InflightAccount'
- *  - name: recording
- *    description: 'Everything you need to know about EnrouteRecording'
  * definitions:
  *   Ticket:
  *     type: object
@@ -33,11 +31,9 @@
  *          schema:
  *             $ref: "#/definitions/Destination"
  *        ttl:
- *          type: number
- *          format integer
+ *          type: integer
  *        timestamp:
- *          type: number
- *          format: date
+ *          type: integer
  *   InflightAccount:
  *      type: object
  *      required:
@@ -57,11 +53,9 @@
  *        avatarUrl:
  *          type: string
  *        timestamp:
- *          type: date
- *          format: integer
+ *          type: integer
  *        ttl:
- *          type: number
- *          format integer
+ *          type: integer
  *   Destination:
  *      type: object
  *      required:
@@ -81,19 +75,6 @@
  *          type: string
  *        country:
  *          type: string    
- *   EnrouteRecording:
- *      type: object
- *      properties:
- *        geoPosition:
- *          type: array
- *          items:
- *              type: number
- *        speed:
- *          type: number
- *        heading:
- *          type: number
- *        ticketId:
- *          type: string
  *   Error:
  *     type: object
  *     required:

@@ -36,9 +36,11 @@
     "glob": "^7.1.1",
     "http-status": "^0.2.3",
     "ip": "^1.1.4",
+    "location-model": "https://github.com/monsterstack/location-model#development",
     "needle": "^1.4.3",
     "node-uuid": "^1.4.7",
     "optimist": "^0.6.1",
+    "promise": "^7.1.1",
     "redis": "^2.6.4",
     "remote-events": "^1.1.4",
     "request": "^2.79.0",
@@ -47,9 +49,12 @@
     "socket.io-client": "^1.7.2",
     "socket.io-redis": "^2.0.1",
     "socketio-auth": "^0.1.0",
+    "tenant-middleware": "https://github.com/monsterstack/tenant-middleware#development",
     "winston": "^2.3.0"
   },
   "devDependencies": {
-    "mocha-better-spec-reporter": "^3.1.0"
+    "mocha-better-spec-reporter": "^3.1.0",
+    "mocha-mongoose": "latest",
+    "discovery-test-tools": "https://github.com/monsterstack/discovery-test-tools#development"
   }
 }

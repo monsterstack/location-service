@@ -15,5 +15,8 @@
   },
   "websockets": {
     "enabled": true
+  },
+  "db": {
+    "url": "mongodb://mongo.digitalfunk.io:27017"
   }
 }

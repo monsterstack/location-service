@@ -51,6 +51,8 @@ describe('location-api-binding', () => {
         done(new Error("Api is null"));
       } else if(service.api.health === undefined) {
         done(new Error("Health Api is null"));
+      } else if(service.api.account === undefined) {
+        done(new Error('Account Api is null'));
       } else {
         done();
       }
@@ -61,8 +63,10 @@ describe('location-api-binding', () => {
 
   }).timeout(2000);
 
-  after(() => {
-
+  after((done) => {
+    if(server)
+      server.getHttp().close();
+    done();
   });
 
 });
