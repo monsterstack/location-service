@@ -4,7 +4,7 @@
   "description": "Location Service",
   "main": "server.js",
   "scripts": {
-    "test": "cd ./tests && mocha ./*-test.js --reporter nyan",
+    "test": "cd ./tests && mocha **/*-test.js --reporter nyan",
     "checkStyle": "jscs api libs tests --reporter unix",
     "fixStyle": "jscs --fix api libs tests",
     "docker-build": "docker-compose --host ${DOCKER_REGISTRY_HOST} -f docker-compose.yml -f docker-compose.prod.yml build",
