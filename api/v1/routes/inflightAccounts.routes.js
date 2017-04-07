@@ -4,7 +4,6 @@ const createModelFactory = require('location-model').model.createModelFactory;
 const controller = require('../controllers/inflightAccounts.controller.js');
 
 module.exports = (app) => {
-  console.log(app);
   /**
    * @swagger
    * /accounts:
@@ -52,8 +51,8 @@ module.exports = (app) => {
    *        schema:
    * 		  $ref: '#/definitions/Error'
    */
-  app.post('/api/v1/accounts', 
-      app.tenantDbCreation.tenantDb(createModelFactory()), 
+  app.post('/api/v1/accounts',
+      app.tenantDbCreation.tenantDb(createModelFactory()),
       controller.saveAccount(app));
 
   /**
@@ -103,56 +102,56 @@ module.exports = (app) => {
    *        schema:
    *  	  $ref: '#/definitions/Error'
    */
-	app.put('/api/v1/accounts', 
-      app.tenantDbCreation.tenantDb(createModelFactory()), 
-      controller.updateAccount(app));
+  app.put('/api/v1/accounts',
+       app.tenantDbCreation.tenantDb(createModelFactory()),
+       controller.updateAccount(app));
 
-/**
-   * @swagger
-   * /accounts/{id}:
-   *  get:
-   *    description: Find Inflight Account By Id
-   *    operationId: findAccountById
-   *    tags:
-   *      - account
-   *    produces:
-   *      - application/json
-   *    consumes:
-   *      - application/json
-	 *    parameters:
-   *      - name: id
-   *        description: Account Id
-   *        type: string
-   *        in: path
-   *        required: true
-   *      - name: X-Tenant-Id
-   *        description: Tenant Id
-   *        type: string
-   *        in: header
-   *        required: false
-   *      - name: x-fast-pass
-   *        description: Bypass Auth
-   *        type: boolean
-   *        in: header
-   *        require: false
-   *    responses:
-   *      200:
-   *        description: InflightAccount
-   *        type: object
-   *        schema:
-   *          $ref: '#/definitions/InflightAccount'
-   *      404:
-   *        description: Not Found
-   *        type: object
-   *        schema:
-   *          $ref: '#/definitions/Error'
-   *      500:
-   *        description: Internal Error
-   *        type: object
-   *        schema:
-   * 		  $ref: '#/definitions/Error'
-   */
-	app.get('/api/v1/accounts/:id', 
-      app.tenantDbCreation.tenantDb(createModelFactory()), 
-      controller.findAccountById(app));
-}
+  /**
+     * @swagger
+     * /accounts/{id}:
+     *  get:
+     *    description: Find Inflight Account By Id
+     *    operationId: findAccountById
+     *    tags:
+     *      - account
+     *    produces:
+     *      - application/json
+     *    consumes:
+     *      - application/json
+    *    parameters:
+     *      - name: id
+     *        description: Account Id
+     *        type: string
+     *        in: path
+     *        required: true
+     *      - name: X-Tenant-Id
+     *        description: Tenant Id
+     *        type: string
+     *        in: header
+     *        required: false
+     *      - name: x-fast-pass
+     *        description: Bypass Auth
+     *        type: boolean
+     *        in: header
+     *        require: false
+     *    responses:
+     *      200:
+     *        description: InflightAccount
+     *        type: object
+     *        schema:
+     *          $ref: '#/definitions/InflightAccount'
+     *      404:
+     *        description: Not Found
+     *        type: object
+     *        schema:
+     *          $ref: '#/definitions/Error'
+     *      500:
+     *        description: Internal Error
+     *        type: object
+     *        schema:
+     * 		  $ref: '#/definitions/Error'
+     */
+  app.get('/api/v1/accounts/:id',
+       app.tenantDbCreation.tenantDb(createModelFactory()),
+       controller.findAccountById(app));
+};

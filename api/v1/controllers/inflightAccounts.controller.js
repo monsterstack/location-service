@@ -11,9 +11,9 @@ const mongoose = require('mongoose');
 
 const saveAccount = (app) => {
   return (req, res) => {
-		let account = req.body;
+    let account = req.body;
 
-		// Validate account
+    // Validate account
     let tenantedDb = req.db;
     let inflightAccountService = new InflightAccountService(tenantedDb);
     inflightAccountService.saveAccount(account).then((savedAccount) => {
@@ -21,14 +21,14 @@ const saveAccount = (app) => {
     }).catch((err) => {
       new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err).writeResponse(res);
     });
-  }
-}
+  };
+};
 
 const updateAccount = (app) => {
   return (req, res) => {
-		let account = req.body;
+    let account = req.body;
 
-		// Validate account
+    // Validate account
     let tenantedDb = req.db;
     let inflightAccountService = new InflightAccountService(tenantedDb);
     inflightAccountService.updateAccount(account).then((savedAccount) => {
@@ -37,30 +37,30 @@ const updateAccount = (app) => {
     }).catch((err) => {
       new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err.message).writeResponse(res);
     });
-  }
-}
+  };
+};
 
 const findAccountById = (app) => {
-	return (req, res) => {
-		let id = req.params.id;
+  return (req, res) => {
+    let id = req.params.id;
 
-    if(!mongoose.Types.ObjectId.isValid(id)) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
       new ServiceError(HttpStatus.BAD_REQUEST, 'Invalid Id Format').writeResponse(res);
     } else {
-    let tenantedDb = req.db;
-		let inflightAccountService = new InflightAccountService(tenantedDb);
-		  inflightAccountService.findAccountById(id).then((account) => {
-        if (account) {
-			    res.status(HttpStatus.OK).send(account);
-        } else {
-			    new ServiceError(HttpStatus.NOT_FOUND, 'Not Found').writeResponse(res);
-        }
-		  }).catch((err) => {
-			  new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err.message).writeResponse(res);
-		  });
+      let tenantedDb = req.db;
+      let inflightAccountService = new InflightAccountService(tenantedDb);
+      inflightAccountService.findAccountById(id).then((account) => {
+          if (account) {
+            res.status(HttpStatus.OK).send(account);
+          } else {
+            new ServiceError(HttpStatus.NOT_FOUND, 'Not Found').writeResponse(res);
+          }
+        }).catch((err) => {
+        new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err.message).writeResponse(res);
+      });
     }
-	}
-}
+  };
+};
 
 /* Public */
 exports.saveAccount = saveAccount;

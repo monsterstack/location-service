@@ -40,7 +40,7 @@
  *         - firstName
  *         - lastName
  *      properties:
- *        id: 
+ *        id:
  *          type: string
  *        firstName:
  *          type: string
@@ -69,12 +69,12 @@
  *          type: string
  *        city:
  *          type: string
- *        state: 
+ *        state:
  *          type: string
  *        postalCode:
  *          type: string
  *        country:
- *          type: string    
+ *          type: string
  *   Error:
  *     type: object
  *     required:
