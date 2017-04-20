@@ -6,6 +6,220 @@
   },
   "swagger": "2.0",
   "paths": {
+    "/geoRecordings": {
+      "post": {
+        "description": "Save GeoRecording",
+        "operationId": "saveGeoRecording",
+        "tags": [
+          "geoRecording"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "geoRecording",
+            "description": "GeoRecording",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoRecording"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "GeoRecording",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoRecording"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      },
+      "get": {
+        "description": "Page GeoRecordings",
+        "operationId": "page",
+        "tags": [
+          "geoRecording"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Query String - default '{}'",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "Limit - default 10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "description": "Offset - default 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PageResult",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/PageResult"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
+    },
+    "$ref": {
+      "0": "#",
+      "1": "/",
+      "2": "d",
+      "3": "e",
+      "4": "f",
+      "5": "i",
+      "6": "n",
+      "7": "i",
+      "8": "t",
+      "9": "i",
+      "10": "o",
+      "11": "n",
+      "12": "s",
+      "13": "/",
+      "14": "E",
+      "15": "r",
+      "16": "r",
+      "17": "o",
+      "18": "r"
+    },
+    "/geoRecordings/{id}": {
+      "put": {
+        "description": "Update GeoRecording",
+        "operationId": "updateGeoRecording",
+        "tags": [
+          "geoRecording"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Id of GeoRecording to update",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "geoRecording",
+            "description": "GeoRecording",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoRecording"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "GeoRecording",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoRecording"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "description": "Get Health of Service",
@@ -91,6 +305,70 @@
           }
         }
       },
+      "get": {
+        "description": "Page Accounts",
+        "operationId": "page",
+        "tags": [
+          "account"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Query String - default '{}'",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "Limit - default 10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "description": "Offset - default 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PageResult",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/PageResult"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
+    },
+    "/accounts/{id}": {
       "put": {
         "description": "Update Inflight Account",
         "operationId": "updateAccount",
@@ -104,6 +382,13 @@
           "application/json"
         ],
         "parameters": [
+          {
+            "name": "id",
+            "description": "Id of InflightAccount to update",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
           {
             "name": "account",
             "description": "InflightAccount",
@@ -137,6 +422,13 @@
               "$ref": "#/definitions/InflightAccount"
             }
           },
+          "404": {
+            "description": "Not Found",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "409": {
             "description": "Conflict",
             "type": "object",
@@ -151,30 +443,7 @@
           }
         }
       },
-      "$ref": "#/definitions/Error"
-    },
-    "$ref": {
-      "0": "#",
-      "1": "/",
-      "2": "d",
-      "3": "e",
-      "4": "f",
-      "5": "i",
-      "6": "n",
-      "7": "i",
-      "8": "t",
-      "9": "i",
-      "10": "o",
-      "11": "n",
-      "12": "s",
-      "13": "/",
-      "14": "E",
-      "15": "r",
-      "16": "r",
-      "17": "o",
-      "18": "r"
-    },
-    "/accounts/{id}": {
+      "$ref": "#/definitions/Error",
       "get": {
         "description": "Find Inflight Account By Id",
         "operationId": "findAccountById",
@@ -232,9 +501,318 @@
           }
         }
       }
+    },
+    "/tickets": {
+      "post": {
+        "description": "Save Ticket",
+        "operationId": "saveTicket",
+        "tags": [
+          "ticket"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "ticket",
+            "description": "Ticket",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Ticket",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      },
+      "get": {
+        "description": "Page Tickets",
+        "operationId": "page",
+        "tags": [
+          "ticket"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Query String - default '{}'",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "limit",
+            "description": "Limit - default 10",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "description": "Offset - default 0",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PageResult",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/PageResult"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
+    },
+    "/tickets/{id}": {
+      "put": {
+        "description": "Update Ticket",
+        "operationId": "updateTicket",
+        "tags": [
+          "ticket"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Ticket Id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "ticket",
+            "description": "Ticket",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      },
+      "$ref": "#/definitions/Error",
+      "get": {
+        "description": "Find Ticket By Id",
+        "operationId": "findTicketById",
+        "tags": [
+          "ticket"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Ticket Id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Ticket"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "GeoRecording": {
+      "type": "object",
+      "required": [
+        "ticketId",
+        "speed",
+        "heading",
+        "coordinates"
+      ],
+      "properties": {
+        "ticketId": {
+          "type": "string"
+        },
+        "speed": {
+          "type": "number"
+        },
+        "heading": {
+          "type": "number"
+        },
+        "coordinates": {
+          "type": [
+            "number"
+          ]
+        }
+      }
+    },
+    "PageResult": {
+      "type": "object",
+      "required": [
+        "limit",
+        "offset",
+        "total"
+      ],
+      "properties": {
+        "limit": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        }
+      }
+    },
     "Ticket": {
       "type": "object",
       "required": [

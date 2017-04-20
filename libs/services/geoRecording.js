@@ -3,64 +3,66 @@ const model = require('location-model');
 const Promise = require('promise');
 const BaseService = require('./baseService').BaseService;
 
-class InflightAccountService extends BaseService {
+class GeoRecordingService extends BaseService {
   constructor(tenantedDb) {
     super();
     this.tenantedDb = tenantedDb;
   }
 
   isValidId(id) {
-    return super.isValidId(this.tenantedDb.model.InflightAccount.repo, id);
+    return super.isValidId(this.tenantedDb.model.GeoRecording.repo, id);
   }
 
-  validateResource(account) {
+  validateResource(geoRecording) {
     let p = new Promise((resolve, reject) => {
-      if (account.firstName && account.lastName && account.ttl) {
+      if (geoRecording.coordinates && geoRecording.heading &&
+         geoRecording.speed && geoRecording.ticketId) {
         resolve(true);
       } else {
         resolve(false);
-      }
+      } 
     });
     return p;
   }
 
-  pageAccounts(query, limit, offset) {
+  pageGeoRecordings(query, limit, offset) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.page(query, limit, offset);
+      return this.tenantedDb.model.GeoRecording.repo.page(query, limit, offset);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing GeoRecording Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  saveAccount(account) {
+  saveGeoRecording(geoRecording) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.save(account);
+      geoRecording.timestamp = Date.now();
+      return this.tenantedDb.model.GeoRecording.repo.save(geoRecording);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing GeoRecording Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  updateAccount(accountId, account) {
+  updateGeoRecording(geoRecordingId, geoRecording) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.update(accountId, account);
+      return this.tenantedDb.model.GeoRecording.repo.update(geoRecordingId, geoRecording);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing GeoRecording Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  findAccountById(id) {
+  findGeoRecordingById(id) {
     if (this.tenantedDb) {
       if (this.isValidId(id)) {
-        return this.tenantedDb.model.InflightAccount.repo.findById(id);
+        return this.tenantedDb.model.GeoRecording.repo.findById(id);
       } else {
         return new Promise((resolve, reject) => {
           reject(new Error('Invalid Id'));
@@ -75,4 +77,4 @@ class InflightAccountService extends BaseService {
   }
 }
 
-module.exports.InflightAccountService = InflightAccountService;
+module.exports.GeoRecordingService = GeoRecordingService;

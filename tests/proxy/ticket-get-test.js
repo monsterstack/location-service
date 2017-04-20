@@ -18,8 +18,11 @@ const startLocationService = () => {
   return p;
 };
 
-describe('get-inflight-account', () => {
-  let tenantedDb = 'picolo';
+describe('get-ticket-test', () => {
+  let tenantedDbName = 'fowler';
+  let tenantedDbUrl = `mongodb://localhost:27017/${tenantedDbName}`;
+  let clearTenantedDB  = require('mocha-mongoose')(tenantedDbUrl, { noClear: true });
+
   let locationService;
   before((done) => {
     startLocationService().then((server) => {
@@ -30,16 +33,16 @@ describe('get-inflight-account', () => {
         });
   });
 
-  it('shall return 404 on findById of unknown account', (done) => {
+  it('shall return 404 on findById of unknown ticket', (done) => {
     let serviceTestHelper = new ServiceTestHelper();
     serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
       if (service) {
-        service.api.account.findAccountById({
-          'X-Tenant-Id': 'picolo',
+        service.api.ticket.findTicketById({
+          'X-Tenant-Id': tenantedDbName,
           'x-fast-pass': true,
           id: '58e66c7e09eb40b3b8a946d7',
-        }, (account) => {
-          if (account.status != HttpStatus.NOT_FOUND) {
+        }, (ticket) => {
+          if (ticket.status != HttpStatus.NOT_FOUND) {
             done(new Error(`Expected 404 response and received ${err.status}`));
           } else {
             done();
@@ -63,8 +66,8 @@ describe('get-inflight-account', () => {
     let serviceTestHelper = new ServiceTestHelper();
     serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
       if (service) {
-        service.api.account.page({
-          'X-Tenant-Id': tenantedDb,
+        service.api.ticket.page({
+          'X-Tenant-Id': tenantedDbName,
           'x-fast-pass': true,
         }, (pageResult) => {
 
@@ -91,8 +94,8 @@ describe('get-inflight-account', () => {
     let serviceTestHelper = new ServiceTestHelper();
     serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
       if (service) {
-        service.api.account.page({
-          'X-Tenant-Id': tenantedDb,
+        service.api.ticket.page({
+          'X-Tenant-Id': tenantedDbName,
           'x-fast-pass': true,
         }, (pageResult) => {
 
@@ -116,7 +119,15 @@ describe('get-inflight-account', () => {
   });
 
   after((done) => {
-    locationService.getHttp().close();
-    done();
+    if (locationService)
+      locationService.getHttp().close();
+
+    // I hate christmas trees
+    clearTenantedDB((err) => {
+      if (err) done(err);
+      else {
+        done();
+      }
+    });
   });
 });

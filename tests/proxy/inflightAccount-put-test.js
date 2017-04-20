@@ -1,8 +1,8 @@
 'use strict';
 
 const HttpStatus = require('http-status');
-const ApiBinding = require('discovery-proxy').ApiBinding;
-const Proxy = require('discovery-proxy').Proxy;
+
+const ServiceTestHelper = require('../helpers/serviceTestHelper').ServiceTestHelper;
 const startTestService = require('discovery-test-tools').startTestService;
 
 const uuid = require('node-uuid');
@@ -31,7 +31,7 @@ const createTestInflightAccount = () => {
   };
 };
 
-describe('Create Inflight Account', () => {
+describe('update-inflight-account', () => {
   let tenantedDbName = 'picolo';
   let tenantedDbUrl = `mongodb://localhost:27017/${tenantedDbName}`;
   let clearTenantedDB  = require('mocha-mongoose')(tenantedDbUrl, { noClear: true });
@@ -46,32 +46,31 @@ describe('Create Inflight Account', () => {
         });
   });
 
-  it('Expect Http Status 200 on Update Account', (done) => {
-    let service = {
-        endpoint: `http://localhost:${locationService.getApp().listeningPort}`,
-        schemaRoute: '/swagger.json',
-        _id: uuid.v1(),
-      };
-
-    let apiBinding = new ApiBinding(service);
-
-    apiBinding.bind().then((service) => {
+  it('shall return 404 on update of unknows account', (done) => {
+    new ServiceTestHelper().serviceTestApiBinding(locationService).then((service) => {
       if (service) {
         //@TODO: Test with valid account data
         let accountEntry = createTestInflightAccount();
 
         service.api.account.updateAccount({
+          id: '58e66c7e09eb40b3b8a946d6',
           'X-Tenant-Id': 'picolo',
           'x-fast-pass': true,
           account: accountEntry,
         }, (account) => {
-          if (account.status === HttpStatus.OK) {
-            done();
-          } else {
-            done(new Error('Expected 200 response'));
+          if (account) {
+            done(new Error('Expected 404 response'));
           }
         }, (err) => {
-          done(err);
+          if (err.errObj) {
+            if (err.errObj.status === HttpStatus.NOT_FOUND) {
+              done();
+            } else {
+              done(new Error('Expected 404 response'));
+            }
+          } else {
+            done(err);
+          }
         });
       } else {
         done(new Error('Received Null Location Service Binding'));

@@ -18,10 +18,15 @@ const startLocationService = () => {
   return p;
 };
 
-describe('create-inflight-account', () => {
-  let tenantedDbName = 'picolo';
+describe('get-georecording-test', () => {
+  let tenantedDbName = 'montgomery';
   let tenantedDbUrl = `mongodb://localhost:27017/${tenantedDbName}`;
   let clearTenantedDB  = require('mocha-mongoose')(tenantedDbUrl, { noClear: true });
+
+  let basicPageRequest = {
+    'X-Tenant-Id': tenantedDbName,
+    'x-fast-pass': true,
+  };
 
   let locationService;
   before((done) => {
@@ -33,22 +38,43 @@ describe('create-inflight-account', () => {
         });
   });
 
-  it('shall return 201 on account creation', (done) => {
+  it('shall return 200 with page descriptor', (done) => {
     let serviceTestHelper = new ServiceTestHelper();
     serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
       if (service) {
-        //@TODO: Test with valid account data
-        let accountEntry = serviceTestHelper.createTestInflightAccount();
-
-        service.api.account.saveAccount({
-          'X-Tenant-Id': tenantedDbName,
-          'x-fast-pass': true,
-          account: accountEntry,
-        }, (account) => {
-          if (account.status === HttpStatus.CREATED) {
-            done();
+        service.api.geoRecording.page(basicPageRequest, (pageResult) => {
+          if (pageResult && pageResult.obj) {
+            if (pageResult.status === 200)
+              done();
+            else
+              done(new Error('Expected Page Result with elements in page'));
           } else {
-            done(new Error('Expected 201 response'));
+            done(new Error('Expected Page Result'));
+          }
+        }, (err) => {
+          done(err);
+        });
+      } else {
+        done(new Error('Received Null Location Service Binding'));
+      }
+    }).catch((err) => {
+      done(err);
+    });
+  });
+
+  it('shall return elements field with page descriptor', (done) => {
+    let serviceTestHelper = new ServiceTestHelper();
+    serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
+      if (service) {
+        service.api.geoRecording.page(basicPageRequest, (pageResult) => {
+
+          if (pageResult && pageResult.obj) {
+            if (pageResult.obj.docs)
+              done();
+            else
+              done(new Error('Expected Page Result with elements in page'));
+          } else {
+            done(new Error('Expected Page Result'));
           }
         }, (err) => {
           done(err);

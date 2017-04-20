@@ -16,10 +16,11 @@ const _ = require('lodash');
  * --overrides     ( path for config overrides )
  */
 const main = () => {
-  if(optimist.argv.overrides) {
+  if (optimist.argv.overrides) {
     let overrides = require(optimist.argv.overrides);
     _.merge(config, overrides);
   }
+
   let announce = false;
   let useRandomWorkerPort = false;
   let announcement = require('./announcement.json');
@@ -28,23 +29,23 @@ const main = () => {
   let discoveryHost = config.discovery.host;
 
   // Handle Arguments
-  if(optimist.argv.randomWorkerPort === 'true') {
+  if (optimist.argv.randomWorkerPort === 'true') {
     useRandomWorkerPort = true;
   }
 
-  if(optimist.argv.announce === 'true') {
+  if (optimist.argv.announce === 'true') {
     announce = true;
   }
 
-  if(optimist.argv.region) {
+  if (optimist.argv.region) {
     announcement.region = optimist.argv.region;
   }
 
-  if(optimist.argv.stage) {
+  if (optimist.argv.stage) {
     announcement.stage = optimist.argv.stage;
   }
 
-  if(optimist.argv.discoveryHost) {
+  if (optimist.argv.discoveryHost) {
     discoveryHost = optimist.argv.discoveryHost;
   }
 
@@ -63,13 +64,10 @@ const main = () => {
     app.use('/portal', express.static(path.join(__dirname + '/portal')));
     app.use('/public', express.static(path.join(__dirname, 'public')));
 
-    // Set up Tenant DB Creation Middleware
-    app.tenantDbCreation = new TenantDbCreationMiddleware(app);
-
     server.loadHttpRoutes();
     server.listen().then(() => {
       console.log('Up and running..');
-      if(announce === true) {
+      if (announce === true) {
         server.announce();
       } else {
         server.query();
@@ -78,8 +76,7 @@ const main = () => {
   }).catch((err) => {
     console.log(err);
   });
-
-}
+};
 
 if(require.main === module) {
   main();

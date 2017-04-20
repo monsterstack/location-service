@@ -1,27 +1,27 @@
 'use strict';
 
 const createModelFactory = require('location-model').model.createModelFactory;
-const controller = require('../controllers/inflightAccounts.controller.js');
+const controller = require('../controllers/tickets.controller.js');
 
 module.exports = (app) => {
   /**
    * @swagger
-   * /accounts:
+   * /tickets:
    *  post:
-   *    description: Save Inflight Account
-   *    operationId: saveAccount
+   *    description: Save Ticket
+   *    operationId: saveTicket
    *    tags:
-   *      - account
+   *      - ticket
    *    produces:
    *      - application/json
    *    consumes:
    *      - application/json
    *    parameters:
-   *      - name: account
-   *        description: InflightAccount
+   *      - name: ticket
+   *        description: Ticket
    *        type: object
    *        schema:
-   *          $ref: '#/definitions/InflightAccount'
+   *          $ref: '#/definitions/Ticket'
    *        in: body
    *        required: true
    *      - name: X-Tenant-Id
@@ -36,12 +36,17 @@ module.exports = (app) => {
    *        require: false
    *    responses:
    *      201:
-   *        description: InflightAccount
+   *        description: Ticket
    *        type: object
    *        schema:
-   *          $ref: '#/definitions/InflightAccount'
+   *          $ref: '#/definitions/Ticket'
    *      409:
    *        description: Conflict
+   *        type: object
+   *        schema:
+   *          $ref: '#/definitions/Error'
+   *      400:
+   *        description: Bad Request
    *        type: object
    *        schema:
    *          $ref: '#/definitions/Error'
@@ -51,33 +56,33 @@ module.exports = (app) => {
    *        schema:
    * 		  $ref: '#/definitions/Error'
    */
-  app.post('/api/v1/accounts',
+  app.post('/api/v1/tickets',
       app.tenantDbCreation.tenantDb(createModelFactory()),
-      controller.saveAccount(app));
+      controller.saveTicket(app));
 
   /**
    * @swagger
-   * /accounts/{id}:
+   * /tickets/{id}:
    *  put:
-   *    description: Update Inflight Account
-   *    operationId: updateAccount
+   *    description: Update Ticket
+   *    operationId: updateTicket
    *    tags:
-   *      - account
+   *      - ticket
    *    produces:
    *      - application/json
    *    consumes:
    *      - application/json
    *    parameters:
    *      - name: id
-   *        description: Id of InflightAccount to update
+   *        description: Ticket Id
    *        type: string
    *        in: path
    *        required: true
-   *      - name: account
-   *        description: InflightAccount
+   *      - name: ticket
+   *        description: Ticket
    *        type: object
    *        schema:
-   *          $ref: '#/definitions/InflightAccount'
+   *          $ref: '#/definitions/Ticket'
    *        in: body
    *        required: true
    *      - name: X-Tenant-Id
@@ -92,10 +97,10 @@ module.exports = (app) => {
    *        require: false
    *    responses:
    *      200:
-   *        description: InflightAccount
+   *        description: Ticket
    *        type: object
    *        schema:
-   *          $ref: '#/definitions/InflightAccount'
+   *          $ref: '#/definitions/Ticket'
    *      409:
    *        description: Conflict
    *        type: object
@@ -110,27 +115,27 @@ module.exports = (app) => {
    *        description: Internal Error
    *        type: object
    *        schema:
-   *  	      $ref: '#/definitions/Error'
+   *  	  $ref: '#/definitions/Error'
    */
-  app.put('/api/v1/accounts/:id',
+  app.put('/api/v1/tickets/:id',
        app.tenantDbCreation.tenantDb(createModelFactory()),
-       controller.updateAccount(app));
+       controller.updateTicket(app));
 
   /**
      * @swagger
-     * /accounts/{id}:
+     * /tickets/{id}:
      *  get:
-     *    description: Find Inflight Account By Id
-     *    operationId: findAccountById
+     *    description: Find Ticket By Id
+     *    operationId: findTicketById
      *    tags:
-     *      - account
+     *      - ticket
      *    produces:
      *      - application/json
      *    consumes:
      *      - application/json
-     *    parameters:
+    *    parameters:
      *      - name: id
-     *        description: Account Id
+     *        description: Ticket Id
      *        type: string
      *        in: path
      *        required: true
@@ -146,10 +151,10 @@ module.exports = (app) => {
      *        require: false
      *    responses:
      *      200:
-     *        description: InflightAccount
+     *        description: Ticket
      *        type: object
      *        schema:
-     *          $ref: '#/definitions/InflightAccount'
+     *          $ref: '#/definitions/Ticket'
      *      404:
      *        description: Not Found
      *        type: object
@@ -161,59 +166,59 @@ module.exports = (app) => {
      *        schema:
      * 		  $ref: '#/definitions/Error'
      */
-  app.get('/api/v1/accounts/:id',
+  app.get('/api/v1/tickets/:id',
        app.tenantDbCreation.tenantDb(createModelFactory()),
-       controller.findAccountById(app));
+       controller.findTicketById(app));
 
   /**
-     * @swagger
-     * /accounts:
-     *  get:
-     *    description: Page Accounts
-     *    operationId: page
-     *    tags:
-     *      - account
-     *    produces:
-     *      - application/json
-     *    consumes:
-     *      - application/json
-     *    parameters:
-     *      - name: query
-     *        description: Query String - default '{}'
-     *        type: string
-     *        in: query
-     *        required: false
-     *      - name: limit
-     *        description: Limit - default 10
-     *        in: query
-     *        required: false
-     *      - name: offset
-     *        description: Offset - default 0
-     *        in: query
-     *        required: false
-     *      - name: X-Tenant-Id
-     *        description: Tenant Id
-     *        type: string
-     *        in: header
-     *        required: false
-     *      - name: x-fast-pass
-     *        description: Bypass Auth
-     *        type: boolean
-     *        in: header
-     *        require: false
-     *    responses:
-     *      200:
-     *        description: PageResult
-     *        type: object
-     *        schema:
-     *          $ref: '#/definitions/PageResult'
-     *      500:
-     *        description: Internal Error
-     *        type: object
-     *        schema:
-     * 		  $ref: '#/definitions/Error'
-     */
-  app.get('/api/v1/accounts',
+    * @swagger
+    * /tickets:
+    *  get:
+    *    description: Page Tickets
+    *    operationId: page
+    *    tags:
+    *      - ticket
+    *    produces:
+    *      - application/json
+    *    consumes:
+    *      - application/json
+    *    parameters:
+    *      - name: query
+    *        description: Query String - default '{}'
+    *        type: string
+    *        in: query
+    *        required: false
+    *      - name: limit
+    *        description: Limit - default 10
+    *        in: query
+    *        required: false
+    *      - name: offset
+    *        description: Offset - default 0
+    *        in: query
+    *        required: false
+    *      - name: X-Tenant-Id
+    *        description: Tenant Id
+    *        type: string
+    *        in: header
+    *        required: false
+    *      - name: x-fast-pass
+    *        description: Bypass Auth
+    *        type: boolean
+    *        in: header
+    *        require: false
+    *    responses:
+    *      200:
+    *        description: PageResult
+    *        type: object
+    *        schema:
+    *          $ref: '#/definitions/PageResult'
+    *      500:
+    *        description: Internal Error
+    *        type: object
+    *        schema:
+    * 		  $ref: '#/definitions/Error'
+    */
+  app.get('/api/v1/tickets',
        app.tenantDbCreation.tenantDb(createModelFactory()),
-       controller.pageAccounts(app));
+       controller.pageTickets(app));
 };

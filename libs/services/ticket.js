@@ -3,64 +3,68 @@ const model = require('location-model');
 const Promise = require('promise');
 const BaseService = require('./baseService').BaseService;
 
-class InflightAccountService extends BaseService {
+class TicketService extends BaseService {
   constructor(tenantedDb) {
     super();
     this.tenantedDb = tenantedDb;
   }
 
   isValidId(id) {
-    return super.isValidId(this.tenantedDb.model.InflightAccount.repo, id);
+    return super.isValidId(this.tenantedDb.model.Ticket.repo, id);
   }
 
-  validateResource(account) {
+  validateResource(ticket) {
     let p = new Promise((resolve, reject) => {
-      if (account.firstName && account.lastName && account.ttl) {
+      if (ticket.inflightAccountId &&
+        ticket.startTime &&
+        ticket.ttl &&
+        ticket.destination) {
         resolve(true);
       } else {
         resolve(false);
       }
     });
+
     return p;
   }
 
-  pageAccounts(query, limit, offset) {
+  pageTickets(query, limit, offset) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.page(query, limit, offset);
+      return this.tenantedDb.model.Ticket.repo.page(query, limit, offset);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing Ticket Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  saveAccount(account) {
+  saveTicket(ticket) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.save(account);
+      return this.tenantedDb.model.Ticket.repo.save(ticket);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing Ticket Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  updateAccount(accountId, account) {
+  updateTicket(ticketId, ticket) {
     if (this.tenantedDb) {
-      return this.tenantedDb.model.InflightAccount.repo.update(accountId, account);
+      return this.tenantedDb.model.Ticket.repo.update(ticketId, ticket);
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing Ticket Repo in tenanted db'));
       });
       return p;
     }
   }
 
-  findAccountById(id) {
+  findTicketById(id) {
     if (this.tenantedDb) {
       if (this.isValidId(id)) {
-        return this.tenantedDb.model.InflightAccount.repo.findById(id);
+        return this.tenantedDb.model.Ticket.repo.findById(id);
       } else {
         return new Promise((resolve, reject) => {
           reject(new Error('Invalid Id'));
@@ -68,11 +72,12 @@ class InflightAccountService extends BaseService {
       }
     } else {
       let p = new Promise((resolve, reject) => {
-        reject(new Error('Missing Inflight Repo in tenanted db'));
+        reject(new Error('Missing Ticket Repo in tenanted db'));
       });
       return p;
     }
   }
 }
 
-module.exports.InflightAccountService = InflightAccountService;
+// Public
+module.exports.TicketService = TicketService;

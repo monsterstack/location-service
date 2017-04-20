@@ -11,6 +11,35 @@
  *  - name: account
  *    description: 'Everything you need to know about InflightAccount'
  * definitions:
+ *   GeoRecording:
+ *     type: object
+ *     required:
+ *        - ticketId
+ *        - speed
+ *        - heading
+ *        - coordinates
+ *     properties:
+ *        ticketId:
+ *          type: string
+ *        speed:
+ *          type: number
+ *        heading:
+ *          type: number
+ *        coordinates:
+ *          type: [number]
+ *   PageResult:
+ *     type: object
+ *     required:
+ *       - limit
+ *       - offset
+ *       - total
+ *     properties:
+ *        limit:
+ *          type: number
+ *        offset:
+ *          type: number
+ *        total:
+ *          type: number
  *   Ticket:
  *     type: object
  *     required:
@@ -76,20 +105,20 @@
  *        country:
  *          type: string
  *   Error:
- *     type: object
- *     required:
- *        - errorMessage
- *     properties:
- *        errorMessage:
+ *      type: object
+ *      required:
+ *         - errorMessage
+ *      properties:
+ *         errorMessage:
  *          type: string
  *   Health:
- *     type: object
- *     required:
- *        - cpuPercentUsage
- *        - loadAvg
- *     properties:
- *        cpuPercentUsage:
- *          type: number
- *        loadAvg:
- *          type: number
+ *      type: object
+ *      required:
+ *         - cpuPercentUsage
+ *         - loadAvg
+ *      properties:
+ *         cpuPercentUsage:
+ *           type: number
+ *         loadAvg:
+ *           type: number
  */

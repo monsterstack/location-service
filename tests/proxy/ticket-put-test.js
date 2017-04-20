@@ -2,8 +2,8 @@
 
 const HttpStatus = require('http-status');
 const startTestService = require('discovery-test-tools').startTestService;
-const ServiceTestHelper = require('../helpers/serviceTestHelper').ServiceTestHelper;
 
+const ServiceTestHelper = require('../helpers/serviceTestHelper').ServiceTestHelper;
 const uuid = require('node-uuid');
 
 /**
@@ -18,8 +18,18 @@ const startLocationService = () => {
   return p;
 };
 
-describe('create-inflight-account', () => {
-  let tenantedDbName = 'picolo';
+const createTestTicket = () => {
+  return {
+    type: 'Ticket',
+    inflightAccountId: 'dafewqfqewfewq',
+    startTime: Date.now(),
+    ttl: 3242342,
+    timestamp: Date.now(),
+  };
+};
+
+describe('update-ticket', () => {
+  let tenantedDbName = 'montague';
   let tenantedDbUrl = `mongodb://localhost:27017/${tenantedDbName}`;
   let clearTenantedDB  = require('mocha-mongoose')(tenantedDbUrl, { noClear: true });
 
@@ -33,25 +43,31 @@ describe('create-inflight-account', () => {
         });
   });
 
-  it('shall return 201 on account creation', (done) => {
-    let serviceTestHelper = new ServiceTestHelper();
-    serviceTestHelper.serviceTestApiBinding(locationService).then((service) => {
+  it('shall return 404 on update of unknown ticket', (done) => {
+    new ServiceTestHelper().serviceTestApiBinding(locationService).then((service) => {
       if (service) {
-        //@TODO: Test with valid account data
-        let accountEntry = serviceTestHelper.createTestInflightAccount();
+        //@TODO: Test with valid ticket data
+        let ticketEntry = createTestTicket();
 
-        service.api.account.saveAccount({
-          'X-Tenant-Id': tenantedDbName,
+        service.api.ticket.updateTicket({
+          id: '58e66c7e09eb40b3b8a946d6',
+          'X-Tenant-Id': 'picolo',
           'x-fast-pass': true,
-          account: accountEntry,
-        }, (account) => {
-          if (account.status === HttpStatus.CREATED) {
-            done();
-          } else {
-            done(new Error('Expected 201 response'));
+          ticket: ticketEntry,
+        }, (ticket) => {
+          if (ticket) {
+            done(new Error('Expected 404 response'));
           }
         }, (err) => {
-          done(err);
+          if (err.errObj) {
+            if (err.errObj.status == HttpStatus.NOT_FOUND) {
+              done();
+            } else {
+              done(new Error('Expected 404 response'));
+            }
+          } else {
+            done(new Error('Expected 404 response'));
+          }
         });
       } else {
         done(new Error('Received Null Location Service Binding'));

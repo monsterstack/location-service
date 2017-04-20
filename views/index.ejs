@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title></title>
+
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<script src='https://api.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.js'></script>
+		<link href='https://api.mapbox.com/mapbox-gl-js/v0.35.1/mapbox-gl.css' rel='stylesheet' />
+    	<style>
+        body { margin:0; padding:0; }
+        #trackerMap { position:absolute; top:0; bottom:0; width:100%; }
+
+				#inflightAccountProfileWidget { position: absolute; top: 50px; left: 50px; z-index: 1000; background-color: ghostwhite;}
+				#inflightAccountProfileWidget div { text-align: center; padding: 5px; font-weight: bolder;}
+
+				#estimatedTimeOfArrivalWidget { position: absolute; top: 50px; right: 50px; height: 70px; z-index: 1000; background-color: ghostwhite;}
+				#estimatedTimeOfArrivalWidget div { text-align: center; background-color: steelblue; color: white; padding: 5px;}
+				#estimatedTimeOfArrivalWidget span { margin: auto; display: table; font-size: 30px; font-weight: bolder; color: gray; padding: 5px;}
+			</style>	
+		</head>
+	<body>
+		<div id="inflightAccountProfileWidget">
+			<img src="https://api.adorable.io/avatars/165/abott@adorable.io.png"></img>
+			<div>Air Around The Clock</div>
+		</div>
+		<div id="expectedTimeOfArrivalWidget">
+
+		</div>
+		<div id="trackerMap">
+  		
+		</div>
+
+		<div id="estimatedTimeOfArrivalWidget">
+			<div>Estimated Arrival Time</div>
+			<span>35 min</span>
+		</div>
+	</body>
+
+	<!-- Map Definition -->
+	<script>
+		mapboxgl.accessToken= 'pk.eyJ1IjoiemFjaGFyeXJvdGUiLCJhIjoiY2oxaWd3MmtyMDB1bTJ3cGsyODN4Z2NjbCJ9.vUlFIuFxUb2fjPHnmyY-Vw';
+		let map = new mapboxgl.Map({
+    	container: 'trackerMap', // container id
+    	style: 'mapbox://styles/mapbox/streets-v9', //stylesheet location
+    	center: [-74.50, 40], // starting position
+    	zoom: 7 // starting zoom
+		});
+
+	</script>
+</html>

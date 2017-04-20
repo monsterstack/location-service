@@ -1,6 +1,7 @@
 'use strict';
 const ApiBinding = require('discovery-proxy').ApiBinding;
 const assert = require('assert');
+const ServiceTestHelper = require('../helpers/serviceTestHelper').ServiceTestHelper;
 
 // Location Api Binding Test Cases
 describe('location-api-binding', () => {
@@ -35,10 +36,7 @@ describe('location-api-binding', () => {
    */
   it('api created when binding occurs', (done) => {
 
-    let service = {
-      endpoint: 'http://localhost:10616',
-      schemaRoute: '/swagger.json',
-    };
+    let service = new ServiceTestHelper().createServiceDescriptor(server);
 
     let apiBinding = new ApiBinding(service);
 
@@ -49,6 +47,8 @@ describe('location-api-binding', () => {
         done(new Error('Health Api is null'));
       } else if (service.api.account === undefined) {
         done(new Error('Account Api is null'));
+      } else if (service.api.geoRecording === undefined) {
+        done(new Error('GeoRecording Api is null'));
       } else {
         done();
       }
