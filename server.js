@@ -53,7 +53,7 @@ const main = () => {
   let server = new Server(announcement.name, announcement, typeQuery, {
     discoveryHost: discoveryHost,
     discoveryPort: config.discovery.port || 7616,
-    useRandomWorkerPort: useRandomWorkerPort
+    useRandomWorkerPort: useRandomWorkerPort,
   });
 
   /** Init and handle lifecycle **/
@@ -78,6 +78,6 @@ const main = () => {
   });
 };
 
-if(require.main === module) {
+if (require.main === module) {
   main();
 }
