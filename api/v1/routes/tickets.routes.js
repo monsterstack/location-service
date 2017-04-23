@@ -57,6 +57,9 @@ module.exports = (app) => {
    * 		  $ref: '#/definitions/Error'
    */
   app.post('/api/v1/tickets',
+      app.authCheck.fastPass(),
+      app.authCheck.authCheck(),
+      app.realizationCheck.dependenciesAreRealized(),
       app.tenantDbCreation.tenantDb(createModelFactory()),
       controller.saveTicket(app));
 
@@ -118,6 +121,9 @@ module.exports = (app) => {
    *  	  $ref: '#/definitions/Error'
    */
   app.put('/api/v1/tickets/:id',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.updateTicket(app));
 
@@ -167,6 +173,9 @@ module.exports = (app) => {
      * 		  $ref: '#/definitions/Error'
      */
   app.get('/api/v1/tickets/:id',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.findTicketById(app));
 
@@ -219,6 +228,9 @@ module.exports = (app) => {
     * 		  $ref: '#/definitions/Error'
     */
   app.get('/api/v1/tickets',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.pageTickets(app));
 };

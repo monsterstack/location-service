@@ -44,6 +44,31 @@ describe('create-ticket', () => {
         });
   });
 
+  it('shall return 201 on ticket creation', (done) => {
+    new ServiceTestHelper().serviceTestApiBinding(locationService).then((service) => {
+      if (service) {
+        let ticketEntry = createTestTicket();
+        service.api.ticket.saveTicket({
+          'X-Tenant-Id': tenantedDbName,
+          'x-fast-pass': true,
+          ticket: ticketEntry,
+        }, (ticket) => {
+          if (ticket.status === HttpStatus.CREATED) {
+            done();
+          } else {
+            done(new Error('Expected 201 response'));
+          }
+        }, (err) => {
+          done(err);
+        });
+      } else {
+        done(new Error('Received Null Location Service Binding'));
+      }
+    }).catch((err) => {
+      done(err);
+    });
+  });
+
   it('shall return 400 on ticket creation with missing accountId', (done) => {
     new ServiceTestHelper().serviceTestApiBinding(locationService).then((service) => {
       if (service) {
@@ -179,31 +204,6 @@ describe('create-ticket', () => {
           } else {
             done(err);
           }
-        });
-      } else {
-        done(new Error('Received Null Location Service Binding'));
-      }
-    }).catch((err) => {
-      done(err);
-    });
-  });
-
-  it('shall return 201 on ticket creation', (done) => {
-    new ServiceTestHelper().serviceTestApiBinding(locationService).then((service) => {
-      if (service) {
-        let ticketEntry = createTestTicket();
-        service.api.ticket.saveTicket({
-          'X-Tenant-Id': tenantedDbName,
-          'x-fast-pass': true,
-          ticket: ticketEntry,
-        }, (ticket) => {
-          if (ticket.status === HttpStatus.CREATED) {
-            done();
-          } else {
-            done(new Error('Expected 201 response'));
-          }
-        }, (err) => {
-          done(err);
         });
       } else {
         done(new Error('Received Null Location Service Binding'));

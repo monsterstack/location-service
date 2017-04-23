@@ -20,7 +20,7 @@ class GeoRecordingService extends BaseService {
         resolve(true);
       } else {
         resolve(false);
-      } 
+      }
     });
     return p;
   }

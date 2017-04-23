@@ -6,7 +6,90 @@
   },
   "swagger": "2.0",
   "paths": {
-    "/geoRecordings": {
+    "/geofences": {
+      "post": {
+        "description": "Save GeoFence",
+        "operationId": "saveGeoFence",
+        "tags": [
+          "geoFence"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "geoFence",
+            "description": "GeoFence",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoFence"
+            },
+            "in": "body",
+            "required": true
+          },
+          {
+            "name": "X-Tenant-Id",
+            "description": "Tenant Id",
+            "type": "string",
+            "in": "header",
+            "required": false
+          },
+          {
+            "name": "x-fast-pass",
+            "description": "Bypass Auth",
+            "type": "boolean",
+            "in": "header",
+            "require": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "GeoFence",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/GeoFence"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "type": "object",
+            "schema": null
+          }
+        }
+      }
+    },
+    "$ref": {
+      "0": "#",
+      "1": "/",
+      "2": "d",
+      "3": "e",
+      "4": "f",
+      "5": "i",
+      "6": "n",
+      "7": "i",
+      "8": "t",
+      "9": "i",
+      "10": "o",
+      "11": "n",
+      "12": "s",
+      "13": "/",
+      "14": "E",
+      "15": "r",
+      "16": "r",
+      "17": "o",
+      "18": "r"
+    },
+    "/georecordings": {
       "post": {
         "description": "Save GeoRecording",
         "operationId": "saveGeoRecording",
@@ -130,28 +213,7 @@
         }
       }
     },
-    "$ref": {
-      "0": "#",
-      "1": "/",
-      "2": "d",
-      "3": "e",
-      "4": "f",
-      "5": "i",
-      "6": "n",
-      "7": "i",
-      "8": "t",
-      "9": "i",
-      "10": "o",
-      "11": "n",
-      "12": "s",
-      "13": "/",
-      "14": "E",
-      "15": "r",
-      "16": "r",
-      "17": "o",
-      "18": "r"
-    },
-    "/geoRecordings/{id}": {
+    "/georecordings/{id}": {
       "put": {
         "description": "Update GeoRecording",
         "operationId": "updateGeoRecording",
@@ -790,6 +852,25 @@
         "coordinates": {
           "type": [
             "number"
+          ]
+        }
+      }
+    },
+    "GeoFence": {
+      "type": "object",
+      "required": [
+        "accountId",
+        "coordinates"
+      ],
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "coordinates": {
+          "type": [
+            [
+              "number"
+            ]
           ]
         }
       }

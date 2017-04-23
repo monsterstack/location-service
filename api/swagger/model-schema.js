@@ -27,6 +27,16 @@
  *          type: number
  *        coordinates:
  *          type: [number]
+ *   GeoFence:
+ *     type: object
+ *     required:
+ *        - accountId
+ *        - coordinates
+ *     properties:
+ *        accountId:
+ *          type: string
+ *        coordinates:
+ *          type: [[number]]
  *   PageResult:
  *     type: object
  *     required:

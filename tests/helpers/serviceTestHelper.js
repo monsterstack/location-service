@@ -25,7 +25,15 @@ class ServiceTestHelper {
       coordinates: [32.4544444, 21.333333],
       ticketId: '12312312312332',
     };
-  }
+  };
+
+  createTestGeoFence() {
+    return {
+      ticketId: 'dddddd',
+      callbackUrl: 'http://mycllbck.com/111111',
+      coordinates: [[32.4544444, 21.333333]],
+    };
+  };
 
   createTestInflightAccount() {
     return {

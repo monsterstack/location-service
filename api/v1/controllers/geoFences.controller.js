@@ -62,6 +62,7 @@ const saveGeoFence = (app) => {
     }).then((geoFence) => {
       res.status(HttpStatus.CREATED).send(geoFence);
     }).catch((err) => {
+      console.log(err);
       new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err).writeResponse(res);
     });
   };

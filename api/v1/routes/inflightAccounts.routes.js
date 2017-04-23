@@ -52,6 +52,9 @@ module.exports = (app) => {
    * 		  $ref: '#/definitions/Error'
    */
   app.post('/api/v1/accounts',
+      app.authCheck.fastPass(),
+      app.authCheck.authCheck(),
+      app.realizationCheck.dependenciesAreRealized(),
       app.tenantDbCreation.tenantDb(createModelFactory()),
       controller.saveAccount(app));
 
@@ -113,6 +116,9 @@ module.exports = (app) => {
    *  	      $ref: '#/definitions/Error'
    */
   app.put('/api/v1/accounts/:id',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.updateAccount(app));
 
@@ -162,6 +168,9 @@ module.exports = (app) => {
      * 		  $ref: '#/definitions/Error'
      */
   app.get('/api/v1/accounts/:id',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.findAccountById(app));
 
@@ -214,6 +223,9 @@ module.exports = (app) => {
      * 		  $ref: '#/definitions/Error'
      */
   app.get('/api/v1/accounts',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.pageAccounts(app));
 };

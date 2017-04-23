@@ -15,7 +15,12 @@ class GeoFenceService extends BaseService {
 
   validateResource(geoFence) {
     let p = new Promise((resolve, reject) => {
-      resolve(true);
+      if (geoFence.coordinates && geoFence.ticketId &&
+         geoFence.callbackUrl) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
     return p;
   }

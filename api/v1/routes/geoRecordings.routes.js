@@ -53,6 +53,9 @@ module.exports = (app) => {
    * 		  $ref: '#/definitions/Error'
    */
   app.post('/api/v1/georecordings',
+      app.authCheck.fastPass(),
+      app.authCheck.authCheck(),
+      app.realizationCheck.dependenciesAreRealized(),
       app.tenantDbCreation.tenantDb(createModelFactory()),
       controller.saveGeoRecording(app));
 
@@ -109,6 +112,9 @@ module.exports = (app) => {
    * 		  $ref: '#/definitions/Error'
    */
   app.put('/api/v1/georecordings/:id',
+      app.authCheck.fastPass(),
+      app.authCheck.authCheck(),
+      app.realizationCheck.dependenciesAreRealized(),
       app.tenantDbCreation.tenantDb(createModelFactory()),
       controller.updateGeoRecording(app));
 
@@ -161,6 +167,9 @@ module.exports = (app) => {
    * 		  $ref: '#/definitions/Error'
    */
   app.get('/api/v1/georecordings',
+       app.authCheck.fastPass(),
+       app.authCheck.authCheck(),
+       app.realizationCheck.dependenciesAreRealized(),
        app.tenantDbCreation.tenantDb(createModelFactory()),
        controller.pageGeoRecordings(app));
 };
