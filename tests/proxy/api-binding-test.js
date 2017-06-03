@@ -1,6 +1,5 @@
 'use strict';
 const ApiBinding = require('discovery-proxy').ApiBinding;
-const assert = require('assert');
 const ServiceTestHelper = require('../helpers/serviceTestHelper').ServiceTestHelper;
 
 // Location Api Binding Test Cases
