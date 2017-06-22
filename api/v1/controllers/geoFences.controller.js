@@ -57,13 +57,16 @@ const saveGeoFence = (app) => {
       if (isValid) {
         return geoFenceService.saveGeoFence(geoFence);
       } else {
-        return new ServiceError(HttpStatus.BAD_REQUEST, 'GeoFence Invalid').writeResponse(res);
+        throw new ServiceError(HttpStatus.BAD_REQUEST, 'GeoFence Invalid');
       }
     }).then((geoFence) => {
       res.status(HttpStatus.CREATED).send(geoFence);
     }).catch((err) => {
-      console.log(err);
-      new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err).writeResponse(res);
+      if (err instanceof ServiceError) {
+        err.writeResponse(res);
+      } else {
+        new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, err).writeResponse(res);
+      }
     });
   };
 };
@@ -81,20 +84,20 @@ const updateGeoFence = (app) => {
       if (isValid) {
         return geoFenceService.updateGeoFence(geoFenceId, geoFence);
       } else {
-        return new ServiceError(HttpStatus.BAD_REQUEST, 'Invalid GeoFence');
+        throw new ServiceError(HttpStatus.BAD_REQUEST, 'Invalid GeoFence');
       }
     }).then((validGeoFence) => {
       if (validGeoFence) {
         res.status(HttpStatus.OK).send(validGeoFence);
       } else {
-        new ServiceError(HttpStatus.NOT_FOUND, 'Not Found - Unable to update GeoFence').writeResponse(res);
+        throw new ServiceError(HttpStatus.NOT_FOUND, 'Not Found - Unable to update GeoFence');
       }
     }).catch((err) => {
       if (err instanceof ServiceError) {
         err.writeResponse(res);
       } else {
         new ServiceError(HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error').writeResponse(res);
-			}
+      }
     });
   };
 };
